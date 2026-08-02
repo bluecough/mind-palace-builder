@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Quiz Result{% endblock %}
+{% block content %}
+  <h1>Quiz complete</h1>
+  <p class="score">{{ score }} / {{ total }} correct</p>
+
+  {% if total == 0 %}
+    <p>Add some locations first.</p>
+  {% elif score == total %}
+    <p>Perfect recall! Your palace is solid.</p>
+  {% elif score >= total * 0.7 %}
+    <p>Good work -- review the misses and strengthen those images.</p>
+  {% else %}
+    <p>A rough round is normal at first. Make the weak associations more
+       vivid, sensory, or absurd, then quiz again.</p>
+  {% endif %}
+
+  <div class="btn-row">
+    <a class="btn" href="{{ url_for('quiz_start') }}">Quiz again</a>
+    <a class="btn btn-secondary" href="{{ url_for('walkthrough') }}">Walk through</a>
+  </div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Learning Path -- Mind Palace{% endblock %}
+{% block content %}
+  <h1>Learning Path</h1>
+  <p class="muted">
+    Five short lessons, each with a hands-on practice exercise. Complete one
+    to unlock the next.
+  </p>
+
+  <ol class="lesson-list">
+    {% for lesson in lessons %}
+      <li class="lesson-row {{ 'done' if lesson.done else '' }} {{ 'locked' if not lesson.unlocked else '' }}">
+        <div class="lesson-status">
+          {% if lesson.done %}&#10003;{% elif not lesson.unlocked %}&#128274;{% else %}{{ lesson.id }}{% endif %}
+        </div>
+        <div class="lesson-info">
+          <strong>Lesson {{ lesson.id }}: {{ lesson.title }}</strong>
+        </div>
+        {% if lesson.unlocked %}
+          <a class="btn btn-secondary" href="{{ url_for('lesson' ~ lesson.id) }}">
+            {{ 'Review' if lesson.done else 'Start' }}
+          </a>
+        {% else %}
+          <span class="muted">Locked</span>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ol>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Lesson 3 -- Mind Palace{% endblock %}
+{% block content %}
+  <p class="muted"><a href="{{ url_for('learn') }}">&larr; Learning path</a></p>
+  <h1>Lesson 3: Building Vivid Associations</h1>
+
+  <p>
+    "Make it vivid" is easy to say and hard to do on the first try. Concretely,
+    a strong association usually has two ingredients: a <strong>sense</strong>
+    (something it sounds, smells, or feels like) and <strong>motion or action</strong>
+    (something happening, not just sitting there). A giant golden key stuck
+    in your door is okay. A giant golden key <em>screeching as it turns and
+    sparks fly across the doorframe</em> is much stickier.
+  </p>
+
+  <h2>Practice: invent an image</h2>
+  <p>Your practice item is: <strong class="highlight">{{ item }}</strong></p>
+  <p class="tip">
+    Imagine placing this item at your front door (or any spot you like) and
+    describe the vivid image in a sentence or two.
+  </p>
+
+  <form method="POST">
+    <textarea name="association" rows="3" placeholder="Describe the vivid image..."></textarea>
+    <div class="btn-row">
+      <button class="btn" type="submit" name="action" value="check">Check my image</button>
+      <button class="btn btn-secondary" type="submit" name="action" value="new_item">Try a different item</button>
+    </div>
+  </form>
+
+  {% if feedback %}
+    <div class="reveal-box {{ 'pass' if feedback.passed else 'fail' }}">
+      <p>"{{ feedback.text }}"</p>
+      <ul class="checklist">
+        <li>{{ '✓' if feedback.long_enough else '✗' }} Detailed enough (8+ words)</li>
+        <li>{{ '✓' if feedback.has_sense else '✗' }} Includes a sensory detail</li>
+        <li>{{ '✓' if feedback.has_action else '✗' }} Includes motion or action</li>
+      </ul>
+      {% if not feedback.passed %}
+        <p class="muted">Not quite -- add a sound, smell, or texture, or make something
+           actively happen in the scene, then try again.</p>
+      {% else %}
+        <p class="muted">That's a strong association. Try another item, or move on when ready.</p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <p class="muted">Attempts so far: {{ attempts }}</p>
+
+  <form method="POST">
+    <button class="btn btn-secondary" type="submit" name="action" value="complete"
+      {% if attempts < 1 %}disabled{% endif %}>
+      Continue to Lesson 4 &rarr;
+    </button>
+  </form>
+  {% if attempts < 1 %}
+    <p class="muted">Submit at least one practice image to unlock the next lesson.</p>
+  {% endif %}
+{% endblock %}

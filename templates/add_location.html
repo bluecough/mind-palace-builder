@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Add Location{% endblock %}
+{% block content %}
+  <h1>Add a location</h1>
+  <p class="tip">Tip: {{ tip }}</p>
+  <form method="POST">
+    <label for="location">Location (a stop along your route)</label>
+    <input type="text" id="location" name="location" placeholder="e.g. Front door" required>
+
+    <label for="item">Item to remember</label>
+    <input type="text" id="item" name="item" placeholder="e.g. Keys" required>
+
+    <label for="association">Vivid mental image linking item to spot</label>
+    <textarea id="association" name="association" rows="3"
+              placeholder="e.g. A giant glowing golden key jammed in the door, humming"></textarea>
+
+    <button class="btn" type="submit">Place item</button>
+  </form>
+
+  {% if palace.locations %}
+    <h2>Stops so far</h2>
+    <ol>
+      {% for stop in palace.locations %}
+        <li><strong>{{ stop.location }}</strong> -- {{ stop.item }}</li>
+      {% endfor %}
+    </ol>
+  {% endif %}
+{% endblock %}

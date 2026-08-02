@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Lesson 2 -- Mind Palace{% endblock %}
+{% block content %}
+  <p class="muted"><a href="{{ url_for('learn') }}">&larr; Learning path</a></p>
+  <h1>Lesson 2: Choosing & Sizing Your Route</h1>
+
+  <p>
+    Pick a physical space you know so well you could walk through it with
+    your eyes closed -- your home, your commute, your childhood house. A few
+    rules that separate routes that work from ones that don't:
+  </p>
+  <ul>
+    <li><strong>5-8 stops per palace</strong> is a good starting size -- enough to hold a
+      real list, not so many you lose track of the order.</li>
+    <li><strong>Distinct, well-spaced spots.</strong> "Kitchen counter" and "kitchen sink"
+      three feet apart will blur together. Spread stops out physically.</li>
+    <li><strong>One direction, always.</strong> Walk the same route the same way every
+      time -- front door, then hallway, then kitchen, never backwards.</li>
+    <li><strong>Use a different palace for each unrelated list.</strong> Reusing one
+      palace for a grocery list and a speech outline causes the two sets of
+      images to collide in your memory.</li>
+  </ul>
+
+  <h2>Practice: draft a route</h2>
+  <p class="tip">List at least 5-8 stops, one per line, in the order you'd actually walk them.</p>
+
+  <form method="POST">
+    <textarea name="route" rows="8" placeholder="Front door&#10;Entryway table&#10;Living room couch&#10;Kitchen counter&#10;Back door">{% if route_draft %}{{ route_draft|join('\n') }}{% endif %}</textarea>
+    <button class="btn" type="submit" name="action" value="save_route">Check my route</button>
+  </form>
+
+  {% if feedback %}
+    <div class="reveal-box {{ 'pass' if feedback.ok else 'fail' }}">
+      {{ feedback.message }}
+    </div>
+  {% endif %}
+
+  <form method="POST">
+    <button class="btn btn-secondary" type="submit" name="action" value="complete">
+      Continue to Lesson 3 &rarr;
+    </button>
+  </form>
+{% endblock %}

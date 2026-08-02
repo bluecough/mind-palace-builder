@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Lesson 4 -- Mind Palace{% endblock %}
+{% block content %}
+  <p class="muted"><a href="{{ url_for('learn') }}">&larr; Learning path</a></p>
+  <h1>Lesson 4: Encoding Hard Content</h1>
+
+  <p>
+    Shopping lists are easy -- they're already concrete objects. Numbers,
+    names, and abstract ideas aren't, so you need a bridge that turns them
+    into something picturable before you place them.
+  </p>
+
+  <h2>Numbers: the consonant code</h2>
+  <p>
+    Each digit maps to a consonant sound; vowels are silent and free to use
+    however you like. A number becomes a word, and a word is easy to picture.
+  </p>
+  <table class="code-table">
+    <tr><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th></tr>
+    <tr>
+      <td>s, z</td><td>t, d</td><td>n</td><td>m</td><td>r</td>
+      <td>l</td><td>j</td><td>k, c, q, g</td><td>f, v</td><td>p, b</td>
+    </tr>
+  </table>
+  <p class="muted">Example: 32 &rarr; "m" + "n" &rarr; a word like MooN. Picture a moon, and you've encoded 32.</p>
+
+  <h2>Practice: encode a number</h2>
+  <p>Your number is: <strong class="highlight">{{ number }}</strong></p>
+  <form method="POST">
+    <input type="text" name="number_word" placeholder="A word using the matching consonant sounds">
+    <div class="btn-row">
+      <button class="btn" type="submit" name="action" value="check_number">Check</button>
+      <button class="btn btn-secondary" type="submit" name="action" value="new_number">New number</button>
+    </div>
+  </form>
+  {% if number_feedback %}
+    <div class="reveal-box {{ 'pass' if number_feedback.passed else 'fail' }}">
+      <p>"{{ number_feedback.word }}" encodes: <strong>{{ number_feedback.got or '(no matching sounds)' }}</strong>
+         &middot; target was <strong>{{ number_feedback.target }}</strong></p>
+      {% if number_feedback.passed %}
+        <p class="muted">Matches. Now picture that word doing something at one of your loci.</p>
+      {% else %}
+        <p class="muted">Doesn't match yet -- check the table above and try a different word.</p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <h2>Abstract ideas: person-action-object</h2>
+  <p>
+    For a concept with no shape -- justice, freedom, entropy -- invent a
+    concrete scene: a specific <em>person</em> doing a specific <em>action</em>
+    to a specific <em>object</em>. The scene stands in for the idea.
+  </p>
+
+  <h2>Practice: encode a concept</h2>
+  <p>Your concept is: <strong class="highlight">{{ abstract }}</strong></p>
+  <form method="POST">
+    <textarea name="abstract_image" rows="2" placeholder="A person doing something to an object, representing this concept"></textarea>
+    <div class="btn-row">
+      <button class="btn" type="submit" name="action" value="check_abstract">Save</button>
+      <button class="btn btn-secondary" type="submit" name="action" value="new_abstract">New concept</button>
+    </div>
+  </form>
+  {% if abstract_feedback %}
+    <div class="reveal-box {{ 'pass' if abstract_feedback.submitted else 'fail' }}">
+      {% if abstract_feedback.submitted %}
+        <p>"{{ abstract_feedback.image }}"</p>
+        <p class="muted">Rate it yourself: could you picture that scene instantly? If not,
+           make the person or action more specific and try again.</p>
+      {% else %}
+        <p class="muted">Write a short scene before saving.</p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <form method="POST">
+    <button class="btn btn-secondary" type="submit" name="action" value="complete">
+      Continue to Lesson 5 &rarr;
+    </button>
+  </form>
+{% endblock %}

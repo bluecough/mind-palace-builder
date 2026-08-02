@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Edit Location{% endblock %}
+{% block content %}
+  <h1>Edit stop</h1>
+  <form method="POST">
+    <label for="location">Location</label>
+    <input type="text" id="location" name="location" value="{{ stop.location }}" required>
+
+    <label for="item">Item</label>
+    <input type="text" id="item" name="item" value="{{ stop.item }}" required>
+
+    <label for="association">Association</label>
+    <textarea id="association" name="association" rows="3">{{ stop.association }}</textarea>
+
+    <div class="btn-row">
+      <button class="btn" type="submit" name="action" value="save">Save</button>
+      <button class="btn btn-danger" type="submit" name="action" value="delete"
+              onclick="return confirm('Remove this stop?');">Delete</button>
+    </div>
+  </form>
+  <a href="{{ url_for('walkthrough') }}">&larr; Back to walk through</a>
+{% endblock %}

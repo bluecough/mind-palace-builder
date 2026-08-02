@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Mind Palace{% endblock %}
+{% block content %}
+  <h1>{{ palace.name or "Unnamed Palace" }}</h1>
+  <p class="muted">
+    {{ palace.locations|length }} location(s) stored &middot;
+    learning path {{ lessons_done }}/{{ lesson_count }} complete
+  </p>
+
+  {% if due_count > 0 %}
+    <a class="tip due-banner" href="{{ url_for('quiz_start', scope='due') }}">
+      {{ due_count }} location(s) due for review today &rarr;
+    </a>
+  {% endif %}
+
+  <div class="card-grid">
+    <a class="card" href="{{ url_for('learn') }}">
+      <h3>Learn the method</h3>
+      <p>How and why the method of loci works.</p>
+    </a>
+    <a class="card" href="{{ url_for('name_palace') }}">
+      <h3>Name / rename palace</h3>
+      <p>Set the route this palace is built on.</p>
+    </a>
+    <a class="card" href="{{ url_for('add_location') }}">
+      <h3>Add a location</h3>
+      <p>Place an item at a vivid new stop.</p>
+    </a>
+    <a class="card" href="{{ url_for('walkthrough') }}">
+      <h3>Walk through</h3>
+      <p>Review every stop in order.</p>
+    </a>
+    <a class="card" href="{{ url_for('quiz_start') }}">
+      <h3>Quiz me</h3>
+      <p>Test your recall, stop by stop.</p>
+    </a>
+  </div>
+{% endblock %}

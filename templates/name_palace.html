@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Name Palace{% endblock %}
+{% block content %}
+  <h1>Name your palace</h1>
+  <p>
+    Pick a physical space you know so well you could walk through it with
+    your eyes closed -- your home, your commute, your childhood house.
+  </p>
+  <form method="POST">
+    <label for="name">Palace name</label>
+    <input type="text" id="name" name="name" placeholder="e.g. My Apartment"
+           value="{{ palace.name or '' }}" required>
+    <button class="btn" type="submit">Save</button>
+  </form>
+{% endblock %}

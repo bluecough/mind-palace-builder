@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Lesson 5 -- Mind Palace{% endblock %}
+{% block content %}
+  <p class="muted"><a href="{{ url_for('learn') }}">&larr; Learning path</a></p>
+  <h1>Lesson 5: Avoiding Mistakes & Spaced Review</h1>
+
+  <h2>Common mistakes</h2>
+  <ul>
+    <li><strong>Images that aren't distinctive.</strong> Two similar associations blur
+      together during recall -- the fix is to make each one weirder and more
+      specific, not just "different."</li>
+    <li><strong>Thin associations.</strong> "A key at the door" is a fact, not an image.
+      It won't survive a day.</li>
+    <li><strong>Overloading a locus.</strong> One vivid item per spot. If you need more
+      capacity, add more stops instead of stacking items.</li>
+    <li><strong>Never reviewing.</strong> Even a great palace fades without review --
+      that's not a flaw in the technique, it's just how memory works.</li>
+  </ul>
+
+  <h2>Audit of your real palace</h2>
+  {% if not palace.locations %}
+    <p class="muted">You haven't added any locations yet -- add a few, then revisit this audit.</p>
+  {% else %}
+    {% if similar_pairs %}
+      <div class="reveal-box fail">
+        <p><strong>Possibly too similar:</strong></p>
+        <ul>
+          {% for a, b, ratio in similar_pairs %}
+            <li>"{{ a }}" and "{{ b }}" ({{ (ratio * 100)|round|int }}% similar wording)</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    {% if thin %}
+      <div class="reveal-box fail">
+        <p><strong>Associations that may be too thin (under 5 words):</strong></p>
+        <ul>
+          {% for loc in thin %}<li>{{ loc }}</li>{% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    {% if not similar_pairs and not thin %}
+      <div class="reveal-box pass">No collisions or thin associations detected. Looking solid.</div>
+    {% endif %}
+  {% endif %}
+
+  <h2>Spaced review</h2>
+  <p>
+    Every time you quiz yourself, each location moves through review "boxes":
+    get it right and the next review is pushed further out (1, 2, 4, 7, 14,
+    then 30 days); get it wrong and it resets to daily review. The homepage
+    shows how many locations are due today -- that's the queue to work
+    through, not the whole palace every time.
+  </p>
+
+  <form method="POST">
+    <button class="btn" type="submit" name="action" value="complete">Finish learning path</button>
+  </form>
+  <a class="btn btn-secondary" href="{{ url_for('quiz_start') }}">Practice now &rarr;</a>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Walk Through{% endblock %}
+{% block content %}
+  <h1>{{ palace.name or "Unnamed Palace" }}</h1>
+
+  {% if not palace.locations %}
+    <p>Your palace is empty. <a href="{{ url_for('add_location') }}">Add a location</a> to get started.</p>
+  {% else %}
+    <ol class="stop-list">
+      {% for stop in palace.locations %}
+        <li>
+          <div class="stop-header">
+            <strong>{{ stop.location }}</strong>
+            <a class="edit-link" href="{{ url_for('edit_location', idx=loop.index0) }}">edit</a>
+          </div>
+          <div>Item: {{ stop.item }}</div>
+          <div class="muted">Association: {{ stop.association }}</div>
+        </li>
+      {% endfor %}
+    </ol>
+  {% endif %}
+{% endblock %}

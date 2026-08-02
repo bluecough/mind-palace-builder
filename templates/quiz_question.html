@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Quiz{% endblock %}
+{% block content %}
+  <h1>Quiz -- stop {{ pos }} of {{ total }}</h1>
+  <p class="location-prompt">Location: <strong>{{ stop.location }}</strong></p>
+  <p>What did you place here?</p>
+
+  {% if not revealed %}
+    <a class="btn" href="?reveal=1">Reveal answer</a>
+  {% else %}
+    <div class="reveal-box">
+      <p><strong>Item:</strong> {{ stop.item }}</p>
+      <p><strong>Association:</strong> {{ stop.association }}</p>
+    </div>
+    <form method="POST">
+      <p>Was your recall correct?</p>
+      <div class="btn-row">
+        <button class="btn" type="submit" name="correct" value="y">Yes</button>
+        <button class="btn btn-secondary" type="submit" name="correct" value="n">No</button>
+      </div>
+    </form>
+  {% endif %}
+{% endblock %}

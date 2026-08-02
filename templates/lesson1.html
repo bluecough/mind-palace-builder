@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Lesson 1 -- Mind Palace{% endblock %}
+{% block content %}
+  <p class="muted"><a href="{{ url_for('learn') }}">&larr; Learning path</a></p>
+  <h1>Lesson 1: Why Spatial Memory Works</h1>
+
+  <p>
+    Your brain is far better at remembering <strong>spaces</strong> -- routes,
+    rooms, journeys -- than it is at remembering abstract lists. This isn't a
+    trick; it's how human spatial memory evolved. Finding your way back to
+    water, shelter, and food meant your brain built extremely durable,
+    high-resolution maps of places long before it needed to remember words
+    or numbers.
+  </p>
+  <p>
+    The method of loci (Latin for "places") hijacks that system. You mentally
+    "place" each item you want to recall at a specific spot along a route you
+    know cold, using a vivid, exaggerated, or bizarre image to anchor it
+    there. Later, you walk the route in your mind, and each location cues the
+    next item in order -- because you're not really remembering the item, you're
+    remembering the place, which was never hard for you to begin with.
+  </p>
+  <p>
+    Memory athletes who can recall hundreds of digits or a shuffled deck of
+    cards in minutes rely almost entirely on this technique. It isn't a
+    special talent -- it's a method, and it's learnable in an afternoon.
+  </p>
+
+  <form method="POST">
+    <button class="btn" type="submit">Got it -- continue to Lesson 2 &rarr;</button>
+  </form>
+{% endblock %}
